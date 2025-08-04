@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangladesh Clock</title>
+  <style>
+    body {
+      background: #f0f4f9;
+      font-family: "Segoe UI", Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .clock-container {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      padding: 40px 60px;
+      text-align: center;
+    }
+    .time {
+      font-size: 3em;
+      font-weight: bold;
+      color: #217346;
+      margin-bottom: 10px;
+    }
+    .date {
+      font-size: 1.5em;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .zone {
+      font-size: 1em;
+      color: #666;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    <div class="zone">Bangladesh Standard Time (BST, UTC+6)</div>
+  </div>
+  <script>
+    function updateBangladeshClock() {
+      // Get current UTC time
+      const nowUTC = new Date();
+
+      // Calculate Bangladesh time (UTC+6)
+      const bangladeshOffset = 6 * 60; // in minutes
+      const bangladeshTime = new Date(nowUTC.getTime() + (bangladeshOffset - nowUTC.getTimezoneOffset()) * 60000);
+
+      // Format time and date
+      const timeString = bangladeshTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+      const dateString = bangladeshTime.toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+      // Update DOM
+      document.getElementById('time').textContent = timeString;
+      document.getElementById('date').textContent = dateString;
+    }
+
+    setInterval(updateBangladeshClock, 1000);
+    updateBangladeshClock();
+  </script>
+</body>
+</html>
